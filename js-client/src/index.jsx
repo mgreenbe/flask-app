@@ -11,6 +11,7 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+
 const filterObject = (obj, f) => {
   const g = (acc, [key, value]) => {
     acc[key] = value;
@@ -20,3 +21,5 @@ const filterObject = (obj, f) => {
     .filter(f)
     .reduce(g, {})
 }
+
+console.log(filterObject({}, pair => pair[1]));

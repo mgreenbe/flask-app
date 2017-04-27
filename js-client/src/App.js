@@ -1,16 +1,22 @@
-// @flow
-
 import React from 'react'
-import { Button } from './connected-components'
+import { connect } from 'react-redux'
+import { Button } from './connected-button'
+import { Input } from './connected-input'
 
-const App = ({ counter } : { counter: number }) => {
+const mapStateToProps = (state) => {
+  return { state }
+}
+
+const app = ({ state }) => {
   return (
     <div>
-      <label>Answer: <input /></label>
-      <Button data-attr="test data attribute">Click</Button>
-      <p>Counter: {counter}</p>
+      <Input />
+      <Button name="other name">Increment</Button>
+      <p>State: {state}</p>
     </div>
   )
 }
+
+const App = connect(mapStateToProps)(app);
 
 export default App

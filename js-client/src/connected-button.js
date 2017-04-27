@@ -1,15 +1,14 @@
-//@flow
-
 import React from 'react'
 import { connect } from 'react-redux'
 
 const ButtonWrapper = (props) => {
-  return <button {...props}>{props.children}</button>
+  return <button name="name attribute" {...props}>{props.children}</button>
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+  console.log(JSON.stringify(ownProps));
   return {
-    onClick: () => dispatch({type: "TEST"})
+    onClick: () => dispatch({type: "INCREMENT"})
   }
 }
 
