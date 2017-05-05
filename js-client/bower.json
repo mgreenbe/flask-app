@@ -1,0 +1,20 @@
+{
+  "name": "js-client",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Matthew Greenberg <mgreenbe@outlook.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/mgreenbe/flask-app",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "handlebars": "^4.0.8"
+  }
+}

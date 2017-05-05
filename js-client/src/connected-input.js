@@ -2,13 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 const InputWrapper = (props) => {
-  return <input {...props} />
+  return <input value={props.value} onChange={props.onChange} />
 }
 
 const mapStateToProps = (state) => {
-  return {
-    value: state
-  }
+  const value = state.value;
+  return {value}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -22,4 +21,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const Input = connect(mapStateToProps, mapDispatchToProps)(InputWrapper)
 
-export { Input }
+export default Input;
