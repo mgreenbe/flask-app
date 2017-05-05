@@ -7,7 +7,7 @@ import store from './store';
 
 ReactDOM.render(
   <Provider store={store}>
-    <App counter={store.getState()}/>
+    <App />
   </Provider>,
   document.getElementById('root')
 );

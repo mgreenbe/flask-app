@@ -1,35 +1,25 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { set } from 'lodash';
 import { getStuff } from './actions';
+import initialState from './init';
 import C from './C';
 
-const xml = `<div className="{{className}}">
-<Input />
-<Button actionType="INCREMENT">++</Button>
-<Button actionType="SET">Set</Button>
-<Button actionType="SUBMIT" url="/api" id="my_button">Submit</Button>
-<b>Hi</b>, <i>mom!</i>: <input defaultValue="blah" />
-<h1>{{counter}}</h1>
-</div>`;
 
-// const initialState = {counter: 0, value: '', xml};
 const reducer = (state, action) => {
-  C.log(state);
-  var newState;
-  var counter;
-  var value;
+  console.log(JSON.stringify(action, null, 4));
+  let newState, counter;
   switch (action.type) {
     case '@@INIT':
-      newState = {counter: 0, value: '', xml};
+      newState = initialState;
       break;
     case 'INCREMENT':
       counter = state.counter + 1;
       newState = Object.assign({}, state, {counter});
       break;
     case 'CHANGE':
-      value = action.value;
-      newState = Object.assign({}, state, {value});
+      newState = set(Object.assign({}, state), action.fullPath, action.value);
       break;
     case 'SET':
       counter = parseInt(state.value, 10);
@@ -38,11 +28,11 @@ const reducer = (state, action) => {
     default:
       C.log('Hit default in the reducer.');
   }
-  C.log(
+    /*  C.log(
     (`action: ${JSON.stringify(action)}\n\
     old state: ${JSON.stringify(state)}\n\
     new state: ${JSON.stringify(newState)}`).replace(/^\s+/mg, '')
-  );
+  );*/
   return newState;
 };
 
