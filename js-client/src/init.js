@@ -1,10 +1,12 @@
-const source = `<div className="{{className}}">
-<Input path="input" />
-<Button actionType="INCREMENT">++</Button>
-<Button actionType="SET">Set</Button>
-<Button actionType="SUBMIT" url="/api" id="my_button">Submit</Button>
-<b>Hi</b>, <i>mom!</i>: <input defaultValue="blah" />
-<h1>{{greeting}}</h1>
+const source = `<div className='"{{className}}"'>
+<Input path='"input"' />
+<Button actionType='"INCREMENT"'>++</Button>
+<Button actionType='"SET"' n="666" bool="true">Set</Button>
+<Button actionType='"SUBMIT"' url='"/api"' id='"my_button"'>Submit</Button>
+<b>Hi</b>, <i>mom!</i>: <input defaultValue='"blah"' />
+  <h1>{{greeting}}</h1>
+  {{#each list}}<p><b style='{"color": "red"}'>Foo {{math @index "+" 1}}:</b>
+  <i style='{"backgroundColor": "cyan"}'>{{foo}}</i></p>{{/each}}
 </div>`;
 
 const initialState = {
@@ -14,7 +16,8 @@ const initialState = {
     source,
     context: {
       className: "my-class",
-      greeting: "Hi, mom!"
+      greeting: "Hi, mom!",
+      list: [{foo: "bar"}, {foo: "baz"}, {foo: "qux"}]
     }
   }
 };

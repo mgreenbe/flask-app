@@ -1,19 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import pickHTMLAttributes from './attributes.js';
 import { actionCreator } from './actions';
-import C from './C';
 
-const ButtonWrapper = (props) => {
-  return (<button onClick={props.onClick}>{props.children}</button>);
+const ButtonWrapper = ({onClick, children, ...rest}) => {
+  return (<button {...pickHTMLAttributes(rest)} onClick={onClick}>{children}</button>);
 };
-/*ButtonWrapper.propTypes = {
-  children: PropTypes.string.isRequired,
-  onClick: PropTypes.string.isRequired,
-  actionType: PropTypes.func.isRequired
-};*/
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  C.log(JSON.stringify(ownProps));
   return {
     onClick: () => dispatch(actionCreator(ownProps))
   };
