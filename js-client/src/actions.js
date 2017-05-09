@@ -24,6 +24,20 @@ const getStuff = () => {
     .then(text => C.log(text));
 };
 
+const fetchInitialState = (dispatch) => {
+  return fetch('/api')
+  .then(response => response.text())
+  .then(value =>
+    dispatch({
+      type: 'CHANGE',
+      payload: {
+        fullPath: ['mnt', 'source'],
+        value
+      }
+    })
+  );
+}
+
 
 /*const double = (dispatch, getState) => {
   const state = getState();
@@ -35,4 +49,4 @@ const getStuff = () => {
     .then(text => C.log(text));
 };*/
 
-export {getStuff, actionCreator, thunkCreator};
+export {getStuff, fetchInitialState, actionCreator, thunkCreator};

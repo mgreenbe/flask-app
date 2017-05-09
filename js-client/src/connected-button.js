@@ -4,13 +4,9 @@ import pickHTMLAttributes from './attributes.js';
 // import { get } from 'lodash';
 // import { actionCreator } from './actions';
 
-const getFullPath = (_mount, path) => {
-  return [_mount, 'context', ...path.split('.')];
-}
-
 const actionCreators = {
   PUSH: ({path, item, _mount}) => {
-    const fullPath = getFullPath(_mount, path);
+    const fullPath = [_mount, 'context', ...path];
     return {
       type: 'PUSH',
       payload: {fullPath, item}
@@ -20,8 +16,8 @@ const actionCreators = {
   SET: () => null,
 };
 
-const ButtonWrapper = ({onClick, children, ...rest}) => {
-  return (<button {...pickHTMLAttributes(rest)} onClick={onClick}>{children}</button>);
+const ButtonWrapper = ({onClick, children, ...otherProps}) => {
+  return (<button {...pickHTMLAttributes(otherProps)} onClick={onClick}>{children}</button>);
 };
 
 const mapDispatchToProps = (dispatch, {actionType, ...otherProps}) => {
