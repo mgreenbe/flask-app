@@ -19,7 +19,7 @@ const reactify = (node, _mount) => {
       for (let i = 0; i < attributesCount; i++) {
         let {name, value} = node.attributes[i];
         let parsedValue = JSON.parse(value); // Is this safe?
-        console.log(`${name}: ${parsedValue}, ${typeof parsedValue}`)
+        //        console.log(`${name}: ${parsedValue}, ${typeof parsedValue}`)
         props[name] = parsedValue;
       }
     }

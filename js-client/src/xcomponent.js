@@ -3,7 +3,6 @@ import reactify from './reactify';
 import Handlebars from './handlebars';
 import { connect } from 'react-redux';
 import { DOMParser } from 'xmldom';
-import { get } from 'lodash';
 
 const parser = new DOMParser();
 const xComponent = ({source, context, _mount}) => {
@@ -12,7 +11,8 @@ const xComponent = ({source, context, _mount}) => {
   return reactify(node.childNodes[0], _mount);
 }
 const mapStateToProps = (state, {_mount}) => {
-  const {source, context} = (_mount) ? get(state, _mount) : state;
+  const source = state.getIn([_mount, 'source']);
+  const context = state.getIn([_mount, 'context']).toJS();
   return {source, context, _mount}
 }
 const XComponent = connect(mapStateToProps)(xComponent);

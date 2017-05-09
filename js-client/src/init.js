@@ -1,25 +1,17 @@
-const source = `<div className='"{{className}}"'>
-<Input path='"input"' />
-<Button actionType='"INCREMENT"'>++</Button>
-<Button actionType='"SET"' n="666" bool="true">Set</Button>
-<Button actionType='"SUBMIT"' url='"/api"' id='"my_button"'>Submit</Button>
-<b>Hi</b>, <i>mom!</i>: <input defaultValue='"blah"' />
-  <h1>{{greeting}}</h1>
-  {{#each list}}<p><b style='{"color": "red"}'>Foo {{math @index "+" 1}}:</b>
-  <i style='{"backgroundColor": "cyan"}'>{{foo}}</i></p>{{/each}}
+import Immutable from 'immutable';
+
+const source = `<div>
+  <Button actionType='"PUSH"' path='"list"' item='"qux"'>PUSH</Button>
+  {{#each list}}<p>Foo {{math @index "+" 1}}: {{this}}</p>{{/each}}
 </div>`;
 
-const initialState = {
-  counter: 0,
-  value: '',
+const initialState = Immutable.fromJS({
   mnt: {
     source,
     context: {
-      className: "my-class",
-      greeting: "Hi, mom!",
-      list: [{foo: "bar"}, {foo: "baz"}, {foo: "qux"}]
+      list: ["foo", "bar", "baz"]
     }
   }
-};
+});
 
 export default initialState;

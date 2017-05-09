@@ -1,15 +1,19 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { set } from 'lodash';
 import { getStuff } from './actions';
-import initialState from './init';
-import C from './C';
+import reducer from './reducer';
 
+const enhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
+const store = createStore(reducer, enhancer);
 
-const reducer = (state, action) => {
+store.dispatch(getStuff);
+
+export default store;
+
+/*const reducer = (state, action) => {
   console.log(JSON.stringify(action, null, 4));
-  let newState, counter;
+  let newState, counter, arr;
   switch (action.type) {
     case '@@INIT':
       newState = initialState;
@@ -25,20 +29,21 @@ const reducer = (state, action) => {
       counter = parseInt(state.value, 10);
       newState = Object.assign({}, state, {counter});
       break;
+    case 'PUSH':
+      console.log(action);
+      arr = [...get(state, action.payload.fullPath)];
+      arr.push(action.payload.item)
+      newState = set(
+        Object.assign({}, state),
+        action.payload.fullPath,
+        arr
+      );
+      console.log(JSON.stringify(newState, null, 4), state === newState);
+      break; 
     default:
       C.log('Hit default in the reducer.');
   }
-    /*  C.log(
-    (`action: ${JSON.stringify(action)}\n\
-    old state: ${JSON.stringify(state)}\n\
-    new state: ${JSON.stringify(newState)}`).replace(/^\s+/mg, '')
-  );*/
   return newState;
-};
+};*/
 
-const enhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
-const store = createStore(reducer, enhancer);
 
-store.dispatch(getStuff);
-
-export default store;
