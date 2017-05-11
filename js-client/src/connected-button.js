@@ -12,24 +12,15 @@ const actionCreators = {
   },
   SUBMIT: ({_mount}) => {
     return (dispatch, getState) => {
-      const subState = {};
-      subState[_mount] = {
-        context: getState().getIn([_mount, 'context']).toJS()
-      };
-        /*      const body = JSON.stringify(
-        getState()
-        .filter((value, key) => key === _mount)
-        .toJS()
-      );*/
-      const body = JSON.stringify(subState);
+      const context = getState().getIn([_mount, 'context']).toJS()
+      const body = JSON.stringify(context);
       return fetch('/api', {method: 'POST', body})
         .then(response => response.json())
-        .then(json => {
+        .then(obj => {
           dispatch({
-            type: 'MERGE',
-            payload: json
+            type: 'MERGEIN',
+            payload: {obj, fullPath: [_mount, 'context']}
           });
-          console.log(JSON.stringify(json))
         });
     }
   },

@@ -1,6 +1,11 @@
 // import initialState from './init';
 import Immutable from 'immutable';
 
+const MERGEIN = (state, {fullPath, obj}) => {
+  const newState = state.mergeDeepIn(fullPath, Immutable.fromJS(obj));
+  return newState
+}
+
 const CHANGE = (state, {fullPath, value}) => {
   return state.setIn(fullPath, value);
 }
@@ -12,7 +17,7 @@ const PUSH = (state, {fullPath, item}) => {
   const newState = state
     .setIn(fullPath, newList);
   return newState;
-}
+} // Change to update?
 
 const initialState = Immutable.fromJS({
   mnt: {
@@ -30,8 +35,8 @@ const reducer = (state=initialState, {type, payload}) => {
   console.log(type, payload);
   let newState
   switch (type) {
-    case 'MERGE':
-      newState = state.mergeDeep(payload);
+    case 'MERGEIN':
+      newState = MERGEIN(state, payload);
       break;
     case 'SET':
       console.log(type, payload);
