@@ -1,0 +1,4 @@
+- Multiple dispatches in response to events (clicks, especially).
+- Add more react components (radio group, checkboxes, etc.).
+- Extract answer checker into function. When fed no arguments, it should return initial values.
+- Load handlebars template file based on route.

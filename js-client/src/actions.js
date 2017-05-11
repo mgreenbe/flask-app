@@ -27,14 +27,16 @@ const getStuff = () => {
 const fetchInitialState = (dispatch) => {
   return fetch('/api')
   .then(response => response.text())
-  .then(value =>
-    dispatch({
+    .then(value => {
+  console.log("Value:", value);
+    return dispatch({
       type: 'CHANGE',
       payload: {
         fullPath: ['mnt', 'source'],
         value
       }
     })
+  }
   );
 }
 

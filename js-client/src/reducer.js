@@ -18,15 +18,21 @@ const initialState = Immutable.fromJS({
   mnt: {
     source: '',
     context: {
+      backgroundColor: 'transparent',
       list: ["foo", "bar", "baz"],
-      value: 666
+      value: 666,
+      answer: ''
     }
   }
 });
 
 const reducer = (state=initialState, {type, payload}) => {
+  console.log(type, payload);
   let newState
   switch (type) {
+    case 'MERGE':
+      newState = state.mergeDeep(payload);
+      break;
     case 'SET':
       console.log(type, payload);
       newState = state;
