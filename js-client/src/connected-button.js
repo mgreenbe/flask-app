@@ -46,12 +46,13 @@ const mapDispatchToProps = (dispatch, {actionType, ...otherProps}) => {
   };
 };
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => {
+/*const mergeProps = (stateProps, dispatchProps, ownProps) => {
   const props = {...ownProps, ...dispatchProps, ...stateProps};
   return props;
 }
+*/
 
-const Button = connect(mapStateToProps, mapDispatchToProps, mergeProps)(ButtonWrapper);
+const Button = connect(mapStateToProps, mapDispatchToProps)(ButtonWrapper);
 
 export default Button;
 

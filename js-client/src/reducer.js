@@ -19,28 +19,12 @@ const PUSH = (state, {fullPath, item}) => {
   return newState;
 } // Change to update?
 
-const initialState = Immutable.fromJS({
-  mnt: {
-    source: '',
-    context: {
-      backgroundColor: 'transparent',
-      list: ["foo", "bar", "baz"],
-      value: 666,
-      answer: ''
-    }
-  }
-});
-
-const reducer = (state=initialState, {type, payload}) => {
+const reducer = (state=Immutable.Map(), {type, payload}) => {
   console.log(type, payload);
-  let newState
+  let newState;
   switch (type) {
     case 'MERGEIN':
       newState = MERGEIN(state, payload);
-      break;
-    case 'SET':
-      console.log(type, payload);
-      newState = state;
       break;
     case 'PUSH':
       newState = PUSH(state, payload)
