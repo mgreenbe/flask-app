@@ -1,19 +1,19 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import pickHTMLAttributes from './attributes.js';
 
 const InputWrapper = ({value, onChange, ...otherProps}) => {
   return <input value={value} onChange={onChange} {...pickHTMLAttributes(otherProps)}/>
 }
 
-const mapStateToProps = (state, {_mount, path}) => {
-  const fullPath = [_mount, 'context', ...path];
+const mapStateToProps = (state, {_path, path}) => {
+  const fullPath = [..._path, 'context', ...path];
   const value = state.getIn(fullPath);
   return {value}
 }
 
-const mapDispatchToProps = (dispatch, {_mount, path}) => {
-  const fullPath = [_mount, 'context', ...path];
+const mapDispatchToProps = (dispatch, {_path, path}) => {
+  const fullPath = [..._path, 'context', ...path];
   return {
     onChange: (event) => dispatch({
       type: "CHANGE",

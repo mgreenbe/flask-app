@@ -4,7 +4,7 @@ import Input from './connected-input';
 
 const reactComponents = {Button, Input};
 
-const reactify = (node, _mount) => {
+const reactify = (node, _path) => {
   const type = (node.nodeName in reactComponents)
     ? reactComponents[node.nodeName]
     : node.nodeName;
@@ -13,7 +13,7 @@ const reactify = (node, _mount) => {
     return node.nodeValue;
   }
   else {
-    const props = (typeof type === 'string') ? {} : {_mount};
+    const props = (typeof type === 'string') ? {} : {_path};
     const attributesCount = node.attributes && node.attributes.length;
     if (attributesCount) {
       for (let i = 0; i < attributesCount; i++) {
@@ -27,7 +27,7 @@ const reactify = (node, _mount) => {
     const childNodesCount = node.childNodes && node.childNodes.length;
     if (childNodesCount) {
       for (let i = 0; i < childNodesCount; i++) {
-        children.push(reactify(node.childNodes[i], _mount));
+        children.push(reactify(node.childNodes[i], _path));
       }
     }
     return React.createElement(type, props, ...children);

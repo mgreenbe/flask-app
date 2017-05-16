@@ -4,24 +4,24 @@ import { connect } from 'react-redux';
 import { DOMParser } from 'xmldom';
 
 const parser = new DOMParser();
-const xComponent = ({source, context, _mount}) => {
+const xComponent = ({source, context, path}) => {
   const XMLString = (source) ? Handlebars.compile(source)(context) : undefined;
   if (XMLString) {
     const node = parser.parseFromString(XMLString);
-    return reactify(node.childNodes[0], _mount);
+    return reactify(node.childNodes[0], path);
   }
   else {
     return null;
   }
 }
-const mapStateToProps = (state, {_mount}) => {
-  const source = (state.hasIn([_mount, 'source']))
-    ? state.getIn([_mount, 'source'])
+const mapStateToProps = (state, {path}) => {
+  const source = (state.hasIn([...path, 'source']))
+    ? state.getIn([...path, 'source'])
     : '';
-  const context = (state.hasIn([_mount, 'context']))
-    ? state.getIn([_mount, 'context']).toJS()
+  const context = (state.hasIn([...path, 'context']))
+    ? state.getIn([...path, 'context']).toJS()
     : {};
-  return {source, context, _mount}
+  return {path, source, context}
 }
 const XComponent = connect(mapStateToProps)(xComponent);
 

@@ -20,9 +20,12 @@ const PUSH = (state, {fullPath, item}) => {
 } // Change to update?
 
 const reducer = (state=Immutable.Map(), {type, payload}) => {
-  console.log(type, payload);
+  //  console.log(`type: ${type},\npayload: ${JSON.stringify(payload, null, 2)}`);
   let newState;
   switch (type) {
+    case 'RECEIVE_ITEMS':
+      newState = state.mergeIn(payload.path, Immutable.fromJS(payload.items));
+      break;
     case 'MERGEIN':
       newState = MERGEIN(state, payload);
       break;
