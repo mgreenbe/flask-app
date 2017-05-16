@@ -6,17 +6,23 @@ const InputWrapper = ({value, onChange, ...otherProps}) => {
   return <input value={value} onChange={onChange} {...pickHTMLAttributes(otherProps)}/>
 }
 
-const mapStateToProps = (state, {_path, path}) => {
-  const fullPath = [..._path, 'context', ...path];
+const mapStateToProps = (state, {_path, path, type, value}) => {
+const fullPath = [..._path, 'context', ...path];
+  if (type === 'radio') {
+    const checked = (state.getIn(fullPath) === value)
+    return {checked}
+  }
+  else {
   const value = state.getIn(fullPath);
-  return {value}
+    return {value}
+  }
 }
 
 const mapDispatchToProps = (dispatch, {_path, path}) => {
   const fullPath = [..._path, 'context', ...path];
   return {
     onChange: (event) => dispatch({
-      type: "CHANGE",
+      type: 'CHANGE',
       payload: {fullPath, value: event.target.value}
     })
   }
