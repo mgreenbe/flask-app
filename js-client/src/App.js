@@ -25,7 +25,7 @@ const list = ({ids, components}) => {
   return (
     <div>
       {(ids) ? ids.map(
-        (id, i) => <div style={itemStyle}><XComponent key={i} path={[id]} /></div>
+        (id, i) => <div key={i} style={itemStyle}><XComponent path={[id]} /></div>
       ) : <span>Loading</span>}
     </div>
   )

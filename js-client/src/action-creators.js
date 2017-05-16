@@ -1,16 +1,13 @@
 import fetch from 'isomorphic-fetch';
 
-const fetchInitialState = (url) => {
+const fetchInitialState = (url, path) => {
   return (dispatch) => {
     return fetch(url)
     .then(response => response.json())
       .then(items => {
         return dispatch({
         type: 'RECEIVE_ITEMS',
-        payload: {
-          path: [],
-          items
-        }
+        payload: {path, items}
       })
     });
   }
@@ -34,14 +31,20 @@ const CHANGE = ([path, value], {_path}) => {
 
 const SUBMIT = (args, {_path}) => {
   return (dispatch, getState) => {
-    const context = getState().getIn([..._path, 'context']).toJS()
-    const body = JSON.stringify(context);
-    return fetch('/api', {method: 'POST', body})
+    const {id, context} = getState().getIn(_path).toJS()
+    const requestData = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(context)
+    };
+    return fetch('/api?id=' + id, requestData)
       .then(response => response.json())
       .then(obj => {
         dispatch({
-          type: 'MERGEIN',
-          payload: {obj, fullPath: [_path, 'context']}
+          type: 'RECEIVE_SUBMIT_RESPONSE',
+          payload: {path: [..._path, 'context'], items: obj}
         });
       });
   }

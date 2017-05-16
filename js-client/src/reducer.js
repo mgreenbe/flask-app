@@ -26,6 +26,9 @@ const reducer = (state=Immutable.Map(), {type, payload}) => {
     case 'RECEIVE_ITEMS':
       newState = state.mergeIn(payload.path, Immutable.fromJS(payload.items));
       break;
+    case 'RECEIVE_SUBMIT_RESPONSE':
+      newState = state.mergeIn(payload.path, Immutable.fromJS(payload.items));
+      break;
     case 'MERGEIN':
       newState = MERGEIN(state, payload);
       break;
