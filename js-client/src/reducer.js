@@ -23,6 +23,13 @@ const reducer = (state=Immutable.Map(), {type, payload}) => {
   //  console.log(`type: ${type},\npayload: ${JSON.stringify(payload, null, 2)}`);
   let newState;
   switch (type) {
+    case 'CLEAR':
+      newState = state.setIn([...payload.path, 'context'], 
+        state.getIn([...payload.path, 'initialContext']));
+      break;
+    case 'TOGGLE':
+      newState = state.setIn(payload.fullPath, !state.getIn(payload.fullPath));
+      break;
     case 'RECEIVE_ITEMS':
       newState = state.mergeIn(payload.path, Immutable.fromJS(payload.items));
       break;

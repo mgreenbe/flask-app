@@ -10,7 +10,7 @@ const loggerMiddleware = createLogger();
 const enhancer = composeWithDevTools(applyMiddleware(thunkMiddleware, loggerMiddleware));
 const store = createStore(reducer, enhancer);
 
-const ids = {ids: ['test1', 'test2', 'test3']}
+const ids = {ids: ['test4', 'test1', 'test2', 'test3']}
 const params = querystring.stringify(ids);
 const url = '/api?' + params;
 

@@ -5,6 +5,10 @@ const fetchInitialState = (url, path) => {
     return fetch(url)
     .then(response => response.json())
       .then(items => {
+        console.log(items)
+        for (let key in items) {
+          items[key].initialContext = items[key].context;
+        } // save initial context for clearing
         return dispatch({
         type: 'RECEIVE_ITEMS',
         payload: {path, items}
@@ -50,10 +54,20 @@ const SUBMIT = (args, {_path}) => {
   }
 };
 
+const CLEAR = (_, {_path}) => {
+  return {
+    type: 'CLEAR',
+    payload: {path: _path}
+  }
+};
+
+
+
 const actionCreators = {
   PUSH,
   CHANGE,
-  SUBMIT
+  SUBMIT,
+  CLEAR
 };
 
 export {fetchInitialState, actionCreators};

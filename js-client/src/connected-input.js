@@ -7,24 +7,38 @@ const InputWrapper = ({value, onChange, ...otherProps}) => {
 }
 
 const mapStateToProps = (state, {_path, path, type, value}) => {
-const fullPath = [..._path, 'context', ...path];
+  const fullPath = [..._path, 'context', ...path];
+  let checked;
   if (type === 'radio') {
-    const checked = (state.getIn(fullPath) === value)
+    checked = (state.getIn(fullPath) === value);
+    return {checked};
+  }
+  else if (type === 'checkbox') {
+    checked = state.getIn(fullPath);
     return {checked}
   }
   else {
-  const value = state.getIn(fullPath);
-    return {value}
+    const value = state.getIn(fullPath);
+    return {value};
   }
 }
 
-const mapDispatchToProps = (dispatch, {_path, path}) => {
+const mapDispatchToProps = (dispatch, {type, _path, path}) => {
   const fullPath = [..._path, 'context', ...path];
-  return {
-    onChange: (event) => dispatch({
-      type: 'CHANGE',
-      payload: {fullPath, value: event.target.value}
-    })
+  if (type === 'checkbox') 
+    return {
+      onChange: () => dispatch({
+        type: 'TOGGLE',
+        payload: {fullPath}
+      })
+    }
+  else {
+    return {
+      onChange: (event) => dispatch({
+        type: 'CHANGE',
+        payload: {fullPath, value: event.target.value}
+      })
+    }
   }
 }
 

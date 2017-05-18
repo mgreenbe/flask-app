@@ -1,10 +1,21 @@
 import React from 'react';
 import Button from './connected-button';
 import Input from './connected-input';
+import TeX from './tex';
 
-const reactComponents = {Button, Input};
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
+//import { Button as BsButton,
+  //  FormControl as BsFormControl } from 'react-bootstrap';
+import BsButton from './connected-bsbutton';
+import BsFormControl from './connected-bsformcontrol';
+
+
+
+const reactComponents = {Button, Input, TeX, BsButton, BsFormControl};
 
 const reactify = (node, _path) => {
+  console.log(node.nodeName, typeof node.nodeName);
   const type = (node.nodeName in reactComponents)
     ? reactComponents[node.nodeName]
     : node.nodeName;

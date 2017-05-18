@@ -1,3 +1,5 @@
-- Add more react components (radio group, checkboxes, etc.).
+- Add more react, bootstrap components (radio group, checkboxes, etc.).
+
 - Load problems based on route.
-- Fetch, display multiple problems.
+
+- Allow path as value of boolean attribute; cast value to boolean. (Can handlebars do this?)
